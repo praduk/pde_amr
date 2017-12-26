@@ -4,6 +4,18 @@ build
 # Hidden Files
 .*
 
+# Latex Temporaries and Output
+*.aux
+*.bbl
+*.blg
+*.ilg
+*.log
+*.nlo
+*.nls
+*.thm
+*.toc
+*.pdf
+
 # Prerequisites
 *.d
 

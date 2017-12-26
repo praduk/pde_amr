@@ -1,0 +1,70 @@
+\section{The Continuity Equation}
+
+\begin{df}[Time]
+    \emph{Time} is an element $t\in \R$.
+\end{df}
+
+\begin{df}[Location]
+    \emph{Location} is an element $r=(x,y,z)\in \R^3$.
+\end{df}
+
+\begin{df}[Control Volume]
+    A \emph{control volume} is a closed, bounded,
+    simply-connected subset of $\R^3$ with a piecewise smoooth boundary.
+\end{df}
+
+\begin{df}[Fluid Property]
+A \emph{fluid property} is a function
+$\phi:\R^4 \to \R^N$ that maps $(t,r)\mapsto \phi(t,r)$
+and is differentiable for all $(t,r)\in \R^4$.
+\end{df}
+
+\begin{df}[Velocity]
+\emph{The velocity} $v:\R^4\to \R^3$ is a fluid property.
+\end{df}
+
+\begin{df}[Fluid Property Source]
+\emph{The source} of a fluid property $\phi$ is the function
+$s_\phi:\R^4 \to \R^N$ that maps $(t,r)\mapsto s_\phi(t,r)$.
+\end{df}
+
+\begin{ax}[The Continuity Equation]
+Let $\phi$ be a fluid property, $\Omega$ be a control volume, and
+$\Gamma$ be the boundary of $\Omega$.  Then
+    \begin{equation}
+        \underbrace{\dd{}{t} \iiint_\Omega \phi(t,r) \Omega(dr)}_{\text{change within control volume}}
+        =
+        \underbrace{-\oiint_\Gamma \phi(t,r) \tp{v(t,r)} n(r) \Gamma(dr)}_{\text{amount entering control volume}}
+        + \underbrace{\iiint_\Omega s_\phi(t,r) \Omega(dr)}_{\text{sources within control volume}}
+    \end{equation}
+\end{ax}
+where $n:\R^3\to \R^3$ is the surface normal of $\Gamma$ oriented positive towards
+the exterior of $\Omega$.
+
+\begin{rk}
+    For brevity, the evaluation of the functions such as $\phi(t,r)$ will be simply written
+    as $\phi$ when the meaning is clear.
+\end{rk}
+
+\begin{thm}[The Continuity Equation as a PDE]
+Let $\phi$ be a fluid property,  then
+\begin{equation}
+    \pd{\phi}{t} + ( \phi \tp{v} ) \nabla_r = s_\phi
+\end{equation}
+\end{thm}
+\begin{proof}
+
+\end{proof}
+
+%The continuity equation
+%states that for a fluid within a closed compact volume $\Omega \subseteq \R^3$,
+%\begin{equation}
+%\dd{}{t} \int_\Omega \phi(t,r) dr
+%\end{equation}
+
+
+
+\section{Conservation of Mass}
+\section{Conservation of Energy}
+\section{Conservation of Momentum}
+\section{Steady Navier-Stokes Equations with Heat Transfer}

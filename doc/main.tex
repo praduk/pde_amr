@@ -1,0 +1,108 @@
+\documentclass[12pt,notitlepage]{report}
+
+\title{Aerodynamic Shape Optimization}
+\author{Pradu Kannan}
+\date{}
+
+\usepackage{math}
+\usepackage{nomencl}
+\usepackage{titling}
+\makenomenclature
+\allowdisplaybreaks
+
+\renewcommand{\chaptername}{Section}
+
+\begin{document}
+
+%\begin{titlingpage}
+    \maketitle
+    \begin{abstract}
+        A foray into numerical methods for the direct optimization of aerodynamic shapes.
+    \end{abstract}
+%\end{titlingpage}
+%\maketitle
+
+\tableofcontents
+\printnomenclature
+
+
+\nomenclature{$f:S\to T$}{A function $f$ from set $S$ to set $T$}
+\nomenclature{$\N$}{The set of natural numbers $\{0,1,2,\ldots\}$}
+\nomenclature{$\R$}{The set of real numbers}
+\nomenclature{$\Z$}{The set of integers}
+%\nomenclature{$\Q$}{The set of rational numbers}
+%\nomenclature{$\Z_+$}{The set of positive integers}
+%\nomenclature{$\bar{\Z}_+$}{The set of non-negative integers}
+%\nomenclature{$\R_+$}{The set of positive real numbers}
+%\nomenclature{$\bar{\R}_+$}{The set of non-negative real numbers}
+%\nomenclature{$\C$}{The set of complex numbers}
+\nomenclature{$a\in S$}{Element $a$ is member of the set $S$}
+\nomenclature{$S\subset T$}{Set $S$ is a proper ($S\neq T$) subset of $T$}
+\nomenclature{$S\subseteq T$}{Set $S$ is a subset of $T$}
+\nomenclature{$S\times T$}{The cartesian product of set $S$ with $T$.  This is
+the set of all ordered pairs $(s,t)$, $s\in S$, $t\in T$.}
+\nomenclature{$S^N$}{The cartesian product $S\times S\times S \ldots$ performed
+$N$ times.  This is the set of all ordered $N$-tuples $(s_0,s_1,s_2, \ldots
+s_{N-1})$.}
+\nomenclature{$S \cap T$}{The intersection of sets $S$ and $T$.  All $x$ such that $x\in S$ and $x\in T$.}
+\nomenclature{$S \cup T$}{The union of sets $S$ and $T$.  All $x$ such that $x\in S$ or $x\in T$.}
+\nomenclature{$S \setminus T$}{The difference of sets. All $x$ such that $x\in S$ and $x\notin T$. }
+\nomenclature{$M_{n\times m}(S)$}{The set of $n\times m$ matrices with entries in $S$}
+\nomenclature{$M_n(S)$}{The set of $n\times n$ matrices with entries in $S$}
+\nomenclature{$A \implies B$}{Proposition $A$ is true implies proposition $B$ is
+true. Equivalent to $\neg A \lor B$.}
+\nomenclature{$A \iff B$}{Equivalent to $(A \implies B)\land (B \implies A)$.
+Written as iff (if and only if).}
+\nomenclature{$A \lor B$}{Proposition $A$ is true or proposition $B$ is true.}
+\nomenclature{$A \land B$}{Proposition $A$ is true and proposition $B$ is true.}
+\nomenclature{$\neg A$}{Proposition $A$ is false.}
+\nomenclature{$\forall x P(x)$}{For all $x$ proposition $P(x)$ is true.}
+\nomenclature{$\exists x P(x)$}{There exists $x$ such that proposition $P(x)$ is true.}
+\nomenclature{$\tp{A}$}{Transpose of matrix $A$.}
+\nomenclature{$\ct{A}$}{Conjugate Transpose of matrix $A$.}
+\nomenclature{$I_n$}{$n\times n$ identity matrix.}
+\nomenclature{$0_n$}{$n\times n$ zero matrix.}
+\nomenclature{$0_{n,m}$}{$n\times m$ zero matrix.}
+\nomenclature{$\nulset$}{The empty set.}
+\nomenclature{$\rho$}{Density}
+\nomenclature{$p$}{Pressure}
+\nomenclature{$h$}{Specific Enthalpy}
+\nomenclature{$T$}{Temperature}
+\nomenclature{$t$}{Time}
+\nomenclature{$v$}{Velocity}
+\nomenclature{$\Tr A$}{Trace of matrix $A$.}
+\nomenclature{$\nabla_b a$}{Gradient of $a$ projected onto coordiates $b$. $\nabla_b a = \pd{a}{b}$.}
+\nomenclature{$\nabla_b \cdot a$}{Divergence. Also written as $\nabla_b \cdot a = \tp{\nabla_b}a = \tp{a}\nabla_b = \Tr \left( \pd{a}{b} \right)$}
+
+\chapter{Equations of Motion for a Homogenous Newtonian Fluid}
+\input{eom/main.tex}
+
+%%\chapter{Probability Theory}
+%%\input{prob/main.tex}
+%%
+%%\chapter{Multivariate Normal Distributions}
+%%Derive theorems about MVN distributions needed to derive the Kalman Filter.
+%%
+%%\chapter{Bayesian Estimation and Kalman Filtering}
+%%Introduce Bayesian State Estimation, the Kalman Filter, the Extended Kalman
+%%Filter and the Unscented Kalman Filter.
+%
+%\chapter{Matrix Lie Theory}
+%\input{lietheory/main.tex}
+%
+%\chapter{Lie Group Extended Kalman Filter}
+%\input{estlg/main.tex}
+%
+%\chapter{Applications}
+%\input{apply/main.tex}
+
+\newpage
+\refstepcounter{chapter}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Bibliography}
+\chaptermark{Bibliography}
+\nocite{hinze}
+\bibliographystyle{IEEEtran}
+\bibliography{main}{}
+
+\end{document}
+
