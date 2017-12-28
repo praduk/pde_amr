@@ -1,0 +1,166 @@
+\section{A General Continuity Equation}
+
+\begin{df}[Time]
+    \emph{Time} is an element $t\in \R$.
+\end{df}
+
+\begin{df}[Location]
+    \emph{Location} is an element $r=(x,y,z)\in \R^3$.
+\end{df}
+
+\begin{df}[Control Volume]
+    A \emph{control volume} is a closed, bounded,
+    simply-connected subset of $\R^3$ with a piecewise smoooth boundary.
+\end{df}
+
+\begin{rk}
+Sometimes notions such as ``$\R^N$'', ``a rank $n$ tensor'' and ``$M_n(\R)$''
+will be stated without specifying exactly what $N$ or $n$ are when it
+is clear that $N,n\in\N$.
+\end{rk}
+
+\begin{df}[Flow Property]
+A \emph{flow property} is a function
+$\phi:\R^4 \to M_{n\times m}(\R)$ that maps $(t,r)\mapsto \phi(t,r)$
+and is continuously differentiable for all $(t,r)\in \R^4$.
+\end{df}
+
+\begin{rk}
+Examples of flow properties are density $\rho:\R^4\to \R$, 
+pressure $p:\R^4\to \R$, temperature $T:\R^4\to \R$, specific enthalpy $h:\R^4\to \R$,
+velocity $v:\R^4\to \R^3$, specific linear momentum $\rho v:\R^4\to \R^3$, and the Cauchy stress
+tensor $\sigma:\R^4\to M_3(\R)$.
+\end{rk}
+
+\begin{df}[Velocity]
+\emph{The velocity} $v:\R^4\to \R^3$ is a flow property.
+\end{df}
+
+\begin{df}[Conserved Flow Property]
+Let $\Omega$ be any control volume, and $\Gamma$ be the boundary of $\Omega$.
+A flow property $\phi:\R^4\to \R^N$ is \emph{conserved} if and only if it satisfies the
+continuity equation
+    \begin{equation}
+        \underbrace{\pd{}{t} \iiint_\Omega \phi(t,r) \Omega(dr)}_{\text{change within control volume}}
+        =
+        \underbrace{-\oiint_\Gamma \phi(t,r) \tp{v(t,r)} n(r) \Gamma(dr)}_{\text{amount entering control volume}}
+        + \underbrace{\iiint_\Omega s_\phi(t,r) \Omega(dr),}_{\text{sources within control volume}}
+    \end{equation}
+for all control volumes $\Omega$
+where $n:\R^3\to \R^3$ is the surface normal of $\Gamma$ oriented positive towards
+the exterior of $\Omega$ and
+\emph{the source} of the conserved flow property $\phi$ is the function
+$s_\phi:\R^4 \to \R^N$ that maps $(t,r)\mapsto s_\phi(t,r)$.
+\end{df}
+
+\begin{rk}
+The differential operator $\nabla$ acts on a function that is syntactically adjacent to the right side of $\nabla$. 
+For notational convenicence the operator $\ldel$ is introduced so that it acts exactly like $\nabla$ on functions that are
+syntactically adjacent to the left side $\ldel$.  For example, for $\alpha\in \R$, $f:\R^N\to \R^N$ mapping $a\mapsto f(a)$,
+\begin{align}
+    \alpha \pd{f}{a} &= \alpha \nabla_a f = f \ldel_a \alpha = \pd{f}{a} \alpha \\
+    \nabla_a \cdot f &= \tp{\nabla_a} f = \tp{f} \ldel_a = f \cdot \ldel_a.
+\end{align}
+This newly introduced notation makes it nicer to write tortuous expressions that involve matrix
+valued functions such as $\tp{(\tp{\nabla_a} \tp{A})}$ as $A \ldel_a$ instead.
+To be notationally consistent, $\nabla$ is written as $\rdel$ to denote that it's acting on
+functions that syntactically appear adjacent to the right side of $\rdel$.
+\end{rk}
+
+\begin{thm}[Divergence Theorem for Rank-2 Tensors over $\R$]
+    Let $\Omega$ be a subset of $\R^3$ which is compact and has
+    a piecewise smooth boundary $\Gamma$.
+    Let $A:\R^3 \to M_{N\times 3}(\R)$ be continuously differentiable
+    on a neighborhood of $\Omega$.  Then
+    \begin{equation}
+        \oiint_\Gamma A(r) n(r) \Gamma(dr)
+        = \iiint_\Omega A(r) \ldel_r \Omega(dr),
+    \end{equation}
+    where $n:\R^3\to \R^3$ is the outward pointing normal of $\Gamma$.
+\end{thm}
+\begin{proof}
+    If $N=1$, the theorem statement is identical to the divergence theorem for vectors over $\R$.
+    That is for $a:\R^3 \to \R^3$, the theorem reads
+    \begin{equation}
+        \oiint_\Gamma \tp{a(r)} n(r) \Gamma(dr)
+        = \iiint_\Omega  \tp{a(r)} \ldel_r \Omega(dr).
+    \end{equation}
+    Writing out the divergence theorem for rank-2 tensors row by row results in $N$
+    statements of the divergence theorem for vectors over $\R$.
+    Similarily,  it is easy to generalize the divergence theorem to rank-n tensors over $\R$,
+    e.g. see~\cite{riley}.
+\end{proof}
+
+\begin{rk}
+    For brevity, the evaluation of functions such as $\phi(t,r)$ will be simply written
+    as $\phi$ when the meaning is clear.
+\end{rk}
+
+\begin{thm}[The Continuity Equation as a PDE]
+Iff $\phi$ is a conserved flow property,
+\begin{equation}
+    \label{continuity0}
+    \pd{\phi}{t} + ( \phi \tp{v} ) \ldel_r = s_\phi.
+\end{equation}
+\end{thm}
+
+\begin{proof}
+    Starting with the continuity equation,
+    \begin{equation}
+        \pd{}{t} \iiint_\Omega \phi \Omega(dr) =
+        -\oiint_\Gamma \phi \tp{v} n \Gamma(dr)
+        + \iiint_\Omega s_\phi \Omega(dr),
+    \end{equation}
+    and applying the divergence theorem for rank-2 tensors,
+    \begin{equation}
+        \pd{}{t} \iiint_\Omega \phi \Omega(dr) =
+        -\iiint_\Omega \left(\phi \tp{v} \right) \ldel_r \Omega(dr)
+        + \iiint_\Omega s_\phi \Omega(dr).
+    \end{equation}
+    As a special case of the Reynolds Transport Theorem where $\Omega$ isn't
+    a function of time (or can be proved using the definition of the integral),
+    the time derivative on the left-hand side can be moved into the integral and
+    \begin{equation}
+        0 = \iiint_\Omega \left( \pd{\phi}{t} +
+        \left(\phi \tp{v} \right) \ldel_r
+        - s_\phi \right) \Omega(dr).
+    \end{equation}
+    Because the above equation is true for all $\Omega$, the theorem follows.
+\end{proof}
+
+\begin{lem}
+Let $a:\R^3\to \R^N$ and $b:\R^3\to \R^3$.  Then
+\begin{equation}
+    \label{lem:nablaab}
+    (a\tp{b})\ldel_r = a \tp{\rdel_r} b  + (\rdel_r a) b.
+\end{equation}
+\end{lem}
+\begin{proof}
+    \begin{align}
+        (a\tp{b})\ldel_r &= \begin{bmatrix}
+            b_x a & b_y a & b_z a
+        \end{bmatrix} \ldel_r \\
+        &= \pd{}{x} (b_x a) + \pd{}{y} (b_y a) + \pd{}{z} (b_z a) \\
+        &= \pd{b_x}{x} a + b_x \pd{a}{x} +
+           \pd{b_y}{y} a + b_y \pd{a}{y} +
+           \pd{b_z}{z} a + b_z \pd{a}{z} \\
+        &= \left( \pd{b_x}{x} + \pd{b_y}{y} + \pd{b_z}{z} \right)a +
+           \left(b_x \pd{a}{x} + b_y \pd{a}{y} + b_z \pd{a}{z} \right) \\
+        &= a ( \tp{\rdel_r} b ) + \begin{bmatrix}
+            \pd{a}{x} & \pd{a}{y} & \pd{a}{z}
+        \end{bmatrix} b \\
+        &= a (\tp{\rdel_r} b) + (\rdel_r a) b.
+    \end{align}
+\end{proof}
+
+\begin{thm}[The Continuity Equation as a PDE, Final Form]
+Iff $\phi$ is a conserved flow property,
+\begin{equation}
+    \label{continuity}
+    \pd{\phi}{t} + \phi \tp{\rdel_r} v +  (\rdel_r \phi) v = s_\phi.
+\end{equation}
+\end{thm}
+\begin{proof}
+    Direct consequence of \autoref{lem:nablaab} and \autoref{continuity0}.
+\end{proof}
+

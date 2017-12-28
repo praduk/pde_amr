@@ -7,6 +7,8 @@
 \usepackage{math}
 \usepackage{nomencl}
 \usepackage{titling}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
 \makenomenclature
 \allowdisplaybreaks
 
@@ -71,31 +73,18 @@ Written as iff (if and only if).}
 \nomenclature{$t$}{Time}
 \nomenclature{$v$}{Velocity}
 \nomenclature{$\Tr A$}{Trace of matrix $A$.}
-\nomenclature{$\nabla_b a$}{Gradient of $a$ projected onto coordiates $b$. $\nabla_b a = \pd{a}{b}$.}
-\nomenclature{$\nabla_b \cdot a$}{Divergence. Also written as $\nabla_b \cdot a = \tp{\nabla_b}a = \tp{a}\nabla_b = \Tr \left( \pd{a}{b} \right)$}
+\nomenclature{$\rdel_b a$}{Gradient of $a$ with respect to $b$. $\rdel_b a = \pd{a}{b}$.}
+\nomenclature{$a \ldel_b$}{Gradient of $a$ with respect to $b$. $a \ldel_b = \pd{a}{b}$.}
+\nomenclature{$\rdel_b \cdot a$}{Divergence. Also written as $\rdel_b \cdot a = \tp{\rdel_b}a = \tp{a}\ldel_b = a \cdot \ldel_b = \Tr \left( \pd{a}{b} \right)$}
 
-\chapter{Equations of Motion for a Homogenous Newtonian Fluid}
+
+
+\chapter{Equations of Flow}
 \input{eom/main.tex}
 
-%%\chapter{Probability Theory}
-%%\input{prob/main.tex}
-%%
-%%\chapter{Multivariate Normal Distributions}
-%%Derive theorems about MVN distributions needed to derive the Kalman Filter.
-%%
-%%\chapter{Bayesian Estimation and Kalman Filtering}
-%%Introduce Bayesian State Estimation, the Kalman Filter, the Extended Kalman
-%%Filter and the Unscented Kalman Filter.
-%
-%\chapter{Matrix Lie Theory}
-%\input{lietheory/main.tex}
-%
-%\chapter{Lie Group Extended Kalman Filter}
-%\input{estlg/main.tex}
-%
-%\chapter{Applications}
-%\input{apply/main.tex}
 
+
+% Bibliography
 \newpage
 \refstepcounter{chapter}
 \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Bibliography}

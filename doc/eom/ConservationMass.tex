@@ -1,0 +1,15 @@
+\section{Conservation of Mass}
+\begin{df}[Density]
+    The flow property \emph{density} $\rho:\R^4\to \R$ is conserved.
+    In addition the associated source $s_\rho: \R^4 \to \R$ maps
+    $(t,r)\mapsto 0$ for all $(t,r)\in \R^4$.
+\end{df}
+\begin{thm}[Conservation of Mass, Final Form]
+    \begin{equation}
+    \label{conmass}
+    \pd{\rho}{t} + \rho \tp{\rdel_r} v  +  \tp{(\rdel_r\rho )} v = 0.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Direct consequence of~\autoref{continuity}.
+\end{proof}
