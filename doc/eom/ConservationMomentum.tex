@@ -4,40 +4,30 @@
 \end{df}
 \begin{thm}[Conservation of Linear Momentum]
     \begin{equation}
-        s_{\rho v} = \rho \pd{v}{t} + ( \rho \rdel_r v ) v.
+        \label{convlinmom}
+        s_{\rho v} = \rho \pd{v}{t} + \tp{( \rho \rdel_r v )} v.
     \end{equation}
 \end{thm}
 \begin{proof}
     Applying~\autoref{continuity} with $\phi=\rho v$,
     \begin{equation}
         \label{contmom_tmp1}
-        s_{\rho v} = \pd{\rho}{t}v + \rho \pd{v}{t}  + \rho v \tp{\rdel_r} v  + (\rdel_r(\rho v)) v.
+        s_{\rho v} = \pd{\rho}{t}v + \rho \pd{v}{t}  + \rho v \tp{\rdel_r} v  + \tp{(\rdel_r(\rho v))} v.
     \end{equation}
-    The term $(\rdel_r (\rho v))v$ can be further simplified
+    The term $\tp{(\rdel_r (\rho v))}v$ can be further simplified
     \begin{align}
-        (\rdel_r (\rho v))v &= \begin{bmatrix}
+        \tp{(\rdel_r (\rho v))}v &= \begin{bmatrix}
             \pd{\rho v}{x} & \pd{\rho v}{y} & \pd{\rho v}{z}
         \end{bmatrix} v \\
         &= \begin{bmatrix}
             \pd{\rho}{x} v + \rho \pd{v}{x} & \pd{\rho}{y} v + \rho \pd{v}{y} & \pd{\rho}{z} v + \rho \pd{v}{z}
         \end{bmatrix} v \\
-        &= (v\tp{(\rdel_r\rho)} + \rho (\rdel_r v)) v \\
-        &= (\tp{(\rdel_r\rho)}v)v + \rho (\rdel_r v) v \\
-        &= (\tp{v}(\rdel_r\rho))v + (\rho \rdel_r v) v
+        &= (v\tp{(\rdel_r\rho)} + \rho \tp{(\rdel_r v)}) v \\
+        &= (\tp{(\rdel_r\rho)}v)v + \tp{(\rho \rdel_r v)} v
     \end{align}
     Substituting into~\autoref{contmom_tmp1},
     \begin{align}
-        s_{\rho v} &= \pd{\rho}{t}v + \rho \pd{v}{t}  + \left(\rho \tp{\rdel_r} v + \tp{v} \rdel_r \rho \right) v  + ( \rho \rdel_r v ) v \\
-        s_{\rho v} &= \rho \pd{v}{t}  + \underbrace{\left(\pd{\rho}{t} + \rho \tp{\rdel_r} v + \tp{v} \rdel_r \rho \right)}_{\text{Zero by~\autoref{conmass}!}} v  + ( \rho \rdel_r v ) v
+        s_{\rho v} &= \pd{\rho}{t}v + \rho \pd{v}{t}  + \left(\rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right) v  + \tp{( \rho \rdel_r v )} v \\
+        s_{\rho v} &= \rho \pd{v}{t}  + \underbrace{\left(\pd{\rho}{t} + \rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right)}_{\text{Zero by~\autoref{conmass}!}} v  + \tp{( \rho \rdel_r v )} v
     \end{align}
-\end{proof}
-\begin{thm}[Cauchy Momentum Equation]
-    Let $f:\R^4\to \R^3$ be the body forces on the fluid and the fluid property
-    $\sigma: \R^4\to M_3(\R)$ be the Cauchy stress tensor.  Then
-    \begin{equation}
-        s_{\rho v} = f + \sigma \ldel.
-    \end{equation}
-\end{thm}
-\begin{proof}
-
 \end{proof}

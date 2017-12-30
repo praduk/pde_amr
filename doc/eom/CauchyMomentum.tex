@@ -1,0 +1,162 @@
+\section{The Cauchy Momentum Equation}
+
+\begin{rk}
+In continuum mechanics, the traction vector is a notion
+similar to that of pressure.  It is the contact force acting on an arbitrarily
+small oriented area inside a body.  In the nineteenth century, a pioneering French engineer
+and mathematician \emph{Augustin-Louis Cauchy} showed that all traction vectors in
+any direction at a particular location in a continuum body can be represented by the
+Cauchy stress tensor, a $3\times 3$ matrix valued function.
+\end{rk}
+
+\begin{rk}
+The end objective of this section is to split up the momentum source term $s_{\rho v}$
+into two components: body forces $f_b$ and internal surface contact forces
+between control volumes $f_c$.  Examples of body forces are gravity and
+electromagnetic forces that depend on the mass distribution within the body.
+\end{rk}
+
+\begin{df}[Traction]
+Define a function $A$ such that for a center $c\in \R^3$, a
+radius $d\in R$, and a unit normal direction $n\in \mathcal{S}_2$, $A(c,d,n)$
+is a circular disc defined by the locus of points
+\begin{equation}
+    A(c,d,n) = \set{ r\in \R | \tp{n}(r-c)=0 \text{ and } \tp{(r-c)}{(r-c)}\le d^2 }
+\end{equation}
+oriented in the same direction as $n$.
+    The \emph{traction} is the function $\mathfrak{t}:\R\times\R^3\times \R^3\to \R^3$ that maps
+    \begin{equation}
+        (t,r,n) \mapsto \lim_{d\to 0} \frac{1}{\pi d^2} F_c(t,A(r,d,n)),
+    \end{equation}
+    where $F_c$ is a function that maps an oriented area to the total contact force
+    applied on that area.
+\end{df}
+
+\begin{thm}[Cauchy's Stress Theorem: The Stress Tensor]
+For every $t\in \R$ and $r\in \R^3$ there exists a
+tensor-valued function $\sigma: \R^4\to M_3(\R)$ such that
+for all $n\in \mathcal{S}_2$ 
+    \begin{equation}
+        \mathfrak{t}(t,r,n) = \sigma(t,r) n.
+    \end{equation}
+\end{thm}
+\begin{proof}
+A non-standard beautiful proof of the existence of this stress tensor
+by analyzing forces on a half-sphere can be found in~\cite{silhavy}.
+This proof in addition shows that given no couple-moments (moments per unit volume)
+the form of the stress tensor is symmetric and that a change of coordinates by 
+rotation of elements $R\in \SO(3;\R)$ results in a rotated stress tensor $R\sigma \tp{R}$.
+\end{proof}
+
+\begin{thm}[Cauchy Momentum Equation]
+    Let $f_b:\R^4\to \R$ map $(t,r)$ to be specific body forces acting on the fluid
+    (e.g. $f_b(t,r)=\rho g$ for uniform gravity).
+    Then
+    \begin{equation}
+        \label{cauchymom}
+        \sigma \ldel_r + f_b = \rho \pd{v}{t} + \tp{( \rho \rdel_r v )} v.
+    \end{equation}
+\end{thm}
+
+\begin{proof}
+    Let $\Omega$ be any control volume and $\Gamma$ be its boudnary.  By Newton's second law,
+    \begin{equation}
+        \iiint_\Omega s_{\rho v} d\Omega = \text{sum of all forces acting on $\Omega$}.
+    \end{equation}
+    Decomposing all forces into contact forces and body forces,
+    \begin{equation}
+        \iiint_\Omega s_{\rho v} d\Omega = \oiint_\Gamma \mathfrak{t} d\Gamma + \iiint_\Omega f_b d\Omega.
+    \end{equation}
+    Using Cauchy's stress tensor,
+    \begin{equation}
+        \iiint_\Omega s_{\rho v} d\Omega = \oiint_\Gamma \sigma n d\Gamma + \iiint_\Omega f_b d\Omega.
+    \end{equation}
+    Applying the divergence theorem for rank-2 tensors,
+    \begin{equation}
+        \iiint_\Omega s_{\rho v} d\Omega = \iiint_\Omega \sigma \ldel_r d\Omega + \iiint_\Omega f_b d\Omega.
+    \end{equation}
+    By the localization theorem, 
+    \begin{equation}
+        s_{\rho v} = \sigma \ldel_r + f_b.
+    \end{equation}
+The theorem follows by substituting the above into~\autoref{convlinmom}.
+\end{proof}
+
+%\begin{rk}
+%The Fubini-Tonelli Theorem gives the conditions when double integrals 
+%are equivalent to iterated integrals.
+%\end{rk}
+%
+%\begin{thm}[Fubini-Tonelli Theorem~\cite{wiki}]
+%Let $X$ and $Y$ be $\sigma$-finite measure spaces.
+%If $f$ is a measureable function and any one of
+%the three integrals
+%    \begin{align}
+%        &\int_X \left( \int_Y | f(x,y)| dy \right) dx \\
+%        &\int_Y \left( \int_X | f(x,y)| dx \right) dy \\
+%        &\int_{X\times Y} |f(x,y)| d(x,y)
+%    \end{align}
+%is finite, then
+%    \begin{equation}
+%    \int_X \left( \int_Y f(x,y) dy \right) dx =
+%    \int_Y \left( \int_X f(x,y) dx \right) dy =
+%    \int_{X\times Y} f(x,y) d(x,y).
+%    \end{equation}
+%\end{thm}
+%\begin{proof}
+%See~\cite{wiki}.
+%\end{proof}
+
+%\begin{rk}
+%The end objective is to split up the momentum source term $s_{\rho v}$
+%into two components: body forces $f_b$ and internal surface contact forces
+%between control volumes $f_c$.  Examples of body forces are gravity and
+%electromagnetic forces that depend on the mass distribution within the body.
+%\end{rk}
+
+%\begin{ax}[Newton's Third Law in Continuum Mechanics]
+%    Let $n\in \mathcal{S}_2$ be a unit normal direction.  Then
+%    \begin{equation}
+%        \mathfrak{t}(t,r,n) = -\mathfrak{t}(t,r,-n).
+%    \end{equation}
+%\end{ax}
+
+%\begin{df}[Control Sphere]
+%    Let $\mathfrak{B}$ be the set of all control volumes such that for
+%    every element $\Omega\in \mathfrak{B}$ there exists a unique \emph{center}
+%    $c\in \R^3$ and a unique \emph{radius} $d\in R$ such that for all points
+%    $a\in \R^3$, $a\in \Omega$ if and only if $\tp{(a-c)}(a-c)\le d^2$.
+%    The elements of $\mathfrak{B}$ are \emph{control spheres}.
+%\end{df}
+
+%\begin{df}[Control Cube]
+%A control volume $\Omega$ is a \emph{control cube} iff all of the following are true
+%\begin{enumerate}
+%\item There exists an orthonormal basis $\{e_0, e_1, e_2\}$ for $\R^3$.
+%\item There exists a center $c\in \R^3$ such that $c = c_0 e_0 + c_1 e_1 + c_2 e_2$ for some $c_0, c_1, c_2\in \R$.
+%\item There exists a half-width $w\in \R$.
+%\item The boundary of $\Omega$ is defined as the locus of all points $p\in \R^3$
+%      such that $p= p_0 e_0+p_1 e_1+p_2 e_2$ for some $p_0,p_0,p_1\in \R$ and
+%      \begin{equation}
+%           \max\{ |p_0-c_0|, |p_1-c_1|, |p_2-c_2| \} = w.
+%      \end{equation}
+%\end{enumerate}
+%\end{df}
+%\begin{df}[Faces of a Control Cube]
+%
+%\end{df}
+
+%\begin{df}[Traction Vector~\cite{adeeb}]
+%a
+%\end{df}
+
+%\begin{thm}[Cauchy Momentum Equation]
+%    Let $f:\R^4\to \R^3$ be the body forces on the fluid and the fluid property
+%    $\sigma: \R^4\to M_3(\R)$ be the Cauchy stress tensor.  Then
+%    \begin{equation}
+%        s_{\rho v} = f + \sigma \ldel.
+%    \end{equation}
+%\end{thm}
+%\begin{proof}
+%
+%\end{proof}

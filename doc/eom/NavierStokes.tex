@@ -1,0 +1,143 @@
+\section{The Navier-Stokes Momentum Equation}
+\begin{rk}
+The Navier-Stokes equations, developed in the ninteenth
+century by French engineer and physicist \emph{Claude-Louis Navier}
+and British physicist and mathematician
+\emph{Sir George Gabriel Stokes}, describe the the viscous motion
+of isotropic Newtonian fluids.  The notion of a Newtonian fluid is named
+after English mathematician \emph{Sir Issac Newton} who made the
+observation that the deviatoric stress in many fluids can be approximated
+to be proportional to the gradient of velocity.
+\end{rk}
+
+\begin{df}[Static Pressure]
+    The flow property \emph{static pressure} $p:\R^4\to \R$ maps
+    \begin{equation}
+        (t,r)\mapsto -\frac{1}{3} \tr \sigma(t,r).
+    \end{equation}
+\end{df}
+
+\begin{df}[Deviatoric Stress Tensor]
+The \emph{deviatoric stress tensor} $\tau:\R^4\to M_3(\R)$
+maps
+    \begin{equation}
+        (t,r) \mapsto \sigma(t,r) + p(t,r) I_3.
+    \end{equation}
+\end{df}
+
+\begin{rk}
+The deviatoric stress tensor is the deviation of the Cauchy stess tensor
+from the \emph{mean hydrostatic stress tensor} $-p I_3$ also called the 
+\emph{volumetric stress tensor}.
+\end{rk}
+
+\begin{df}[Newtonian Fluid]
+    A fluid is \emph{Newtonian} iff the deviatoric stress tensor is symmetric and
+    is a linear function of the velocity gradient.
+    That is, there exist coefficients
+    $L_{ijkl}\in \R$ such that
+    \begin{equation}
+        \tau_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (\rdel_r v)_{kl}.
+    \end{equation}
+    The notation $(\cdot)_{ij}$ denotes the element at the $i^\text{th}$ row and $j^\text{th}$ column of matrix $(\cdot)$.
+\end{df}
+
+\begin{rk}
+A fluid is isotropic if it has the same physical properties when measured
+in all directions.
+\end{rk}
+
+\begin{df}[Isotropic Newtonian Fluid]
+    A Newtonian fluid is \emph{isotropic} iff for every rotation matrix $R\in \SO(3;\R)$,
+    \begin{equation}
+        (R\tau \tp{R})_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (R(\rdel_r v)\tp{R})_{kl}.
+    \end{equation}
+\end{df}
+
+\begin{thm}[Deviatoric Stress for an Isotropic Newtonian Fluid]
+Theorem to be written.
+\end{thm}
+\begin{proof}
+    \begin{equation}
+        \tau_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (\rdel_r v)_{kl}.
+    \end{equation}
+    Let $L_{kl}\in M_3(\R)$ denote the matrix with entries $(L_{kl})_{ij} = L_{ijkl}$.  Then
+    \begin{equation}
+        \tau = \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (\rdel_r v)_{kl}.
+    \end{equation}
+    Because $\tau$ is symmetric $L_{kl}$ is symmetric.  The fluid is isotropic, therefore
+    for every $R\in \SO(3;\R)$,
+    \begin{align}
+        R \tau \tp{R} &= \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (R (\rdel_r) v \tp{R})_{kl} \\
+        \tau &= \sum_{k=0}^2 \sum_{l=0}^2 \tp{R} L_{kl} R (R (\rdel_r) v \tp{R})_{kl} \\
+        \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} \underbrace{(\rdel_r v)_{kl}}_{\pd{v_l}{r_k}} &=
+            \sum_{k=0}^2 \sum_{l=0}^2 \underbrace{\tp{R} L_{kl} R (R (\rdel_r) v \tp{R})_{kl}}_{B_{kl}(R)}.
+    \end{align}
+    Expanding out $A_{kl}$,
+    %\noindent\begin{minipage}{\textwidth}
+    \begin{equation*}
+        \hidewidth
+        A_{kl} = \begin{bmatrix}
+            L_{00kl} \pd{v_0}{r_0} + L_{01kl} \pd{v_1}{r_0} + L_{02} \pd{v_2}{r_0}& L_{00kl} \pd{v_0}{r_1} + L_{01} \pd{v_1}{r_1} + L_{02kl} \pd{v_2}{r_1}& L_{00} \pd{v_0}{r_2} + L_{01kl} \pd{v_1}{r_2} + L_{02kl} \pd{v_2}{r_2} \\
+            L_{01kl} \pd{v_0}{r_0} + L_{11kl} \pd{v_1}{r_0} + L_{12} \pd{v_2}{r_0}& L_{01kl} \pd{v_0}{r_1} + L_{11} \pd{v_1}{r_1} + L_{12kl} \pd{v_2}{r_1}& L_{01} \pd{v_0}{r_2} + L_{11kl} \pd{v_1}{r_2} + L_{12kl} \pd{v_2}{r_2} \\
+            L_{02kl} \pd{v_0}{r_0} + L_{12kl} \pd{v_1}{r_0} + L_{22} \pd{v_2}{r_0}& L_{02kl} \pd{v_0}{r_1} + L_{12} \pd{v_1}{r_1} + L_{22kl} \pd{v_2}{r_1}& L_{02} \pd{v_0}{r_2} + L_{12kl} \pd{v_1}{r_2} + L_{22kl} \pd{v_2}{r_2}
+        \end{bmatrix}
+        \hidewidth
+    \end{equation*}
+    %\end{minipage}
+
+    Choosing
+    \begin{equation}
+    R = R_0 = \begin{bmatrix}
+    0 & -1 & 0 \\
+    1 & 0 & 0 \\
+    0 & 0 & 1
+    \end{bmatrix},
+    \end{equation}
+
+\end{proof}
+
+
+%    \begin{equation}
+%        \tau[i,j] = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} \rdel_{r_l} v_k.
+%    \end{equation}
+%    Let $\tau[j]$ be the $j^\text{th}$ column of $\tau$.
+%    Writing the summation in terms of matrix-vector products,
+%    \begin{equation}
+%        \tau[j] = \sum_{i=0}^2 \sum_{k=0}^2 L_{ik} \rdel_r v_k.
+%    \end{equation}
+%    Because the fluid is isotropic, for all $R\in \SO(3;\R)$,
+%    \begin{align}
+%        R\tau \tp{R} &= L \rdel_r (Rv) \\
+%        R\tau \tp{R} &= L (\rdel_r v) \tp{R} \\
+%        R\tau &= L (\rdel_r v)
+%    \end{align}
+%    and so
+%    \begin{align}
+%        R \tau[j] &= \sum_{i=0}^2 \sum_{k=0}^2 L_{ik} R \rdel_{r_l} v \\
+%        \tau[j] &= \sum_{i=0}^2 \sum_{k=0}^2 \tp{R} L_{ik} R \rdel_{r_l} v \\
+%        L_{ik} &= \tp{R} L_{ik} R.
+%    \end{align}
+%    Suppose $m_{ik}$ is an eigenvector of $L_{ik}$ with eigenvalue $\alpha_{ik}$.
+%    Then
+%    \begin{align}
+%        \alpha_{ik} m_{ik} &= L_{ik} m_{ik} \\
+%        \alpha_{ik} m_{ik} &= \tp{R}L_{ik}R m_{ik} \\
+%        \alpha_{ik} R m_{ik} &= L_{ik} R m_{ik}.
+%    \end{align}
+%    $R m_{ik}$ is also an eigenvector of $m_{ik}$ with eigenvalue $\alpha_{ik}$.
+%    Any unit vector on the sphere can be chosen as an eigenvector of $m_{ik}$.
+%    Choose the standard basis for $\R^3$ as the set of eigenvectors.
+%    Then eigendecomposition of $L_{ik}$ gives
+%    \begin{equation}
+%        L_{ik} = I_3 \begin{bmatrix}
+%            \alpha_{ik} & 0 & 0 \\
+%            0 & \alpha_{ik} & 0 \\
+%            0 & 0 & \alpha_{ik}
+%        \end{bmatrix} I_3 = \alpha_{ik} I_3.
+%    \end{equation}
+%    Therefore
+%    \begin{equation}
+%        \tau[j] = \sum_{i=0}^2 \sum_{k=0}^2 \alpha_{ik} \rdel_{r_l} v
+%    \end{equation}
+%    This means that the entire
