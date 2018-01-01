@@ -62,35 +62,64 @@ $s_\phi:\R^4 \to \R^N$ that maps $(t,r)\mapsto s_\phi(t,r)$.
 
 \begin{rk}[Vector Differential Operators]
 In an effort to be able to use the differential operator $\nabla$ in any place you
-could a vector, for example in a dot product (divergence) or even matrix-vector product,
-I introduce the symbols $\rdel$ and $\ldel$ and give precise meaning to them.
+ could a vector, for example in a dot product (divergence), a cross product (curl)
+or even a matrix-vector product, the symbols $\rdel$ and $\ldel$ are introduced
+so that equations can be written with aesthetic precision.
 \end{rk}
 
-\begin{df}[The right del operator $\rdel$]
-    Let $g:\R^n\to \R^m$ maps $a \to g(a)$.
-    The right del operator $\rdel_r$ is as a vector of partial differential operators,
+\begin{df}[The operator $\rdel$]
+    Let $g:\R^n\to \R^m$ map $a \to g(a)$.
+    The operator $\rdel_a$ is a vector of partial differential operators,
     \begin{equation}
-        \rdel_r = \begin{bmatrix}
-            \pd{}{r_0} \\
-            \pd{}{r_1} \\
-            \dots
-            \pd{}{r_n}
-        \end{bmatrix}.
+        \rdel_a = \begin{bmatrix}
+            \pd{}{a_0} \\
+            \pd{}{a_1} \\
+            \vdots \\
+            \pd{}{a_n}
+        \end{bmatrix}
+    \end{equation}
+    so that
+    \begin{equation}
+        \rdel_a \tp{g} = \begin{bmatrix}
+            \pd{}{a_0} \\
+            \pd{}{a_1} \\
+            \vdots \\
+            \pd{}{a_n}
+        \end{bmatrix} \begin{bmatrix}
+            g_0 & g_1 & \cdots & g_m
+        \end{bmatrix}
+        = \begin{bmatrix}
+            \pd{g_0}{a_0} & \pd{g_1}{a_0} & \cdots & \pd{g_m}{a_0} \\
+            \pd{g_0}{a_1} & \pd{g_1}{a_1} & \cdots & \pd{g_m}{a_1} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \pd{g_0}{a_n} & \pd{g_1}{a_n} & \cdots & \pd{g_m}{a_h}
+        \end{bmatrix}
+        =\tp{\left( \pd{g}{a} \right)}.
     \end{equation}
 \end{df}
 
+\begin{rk}
+The gradient of a scalared valued function $g$ is normally
+written $\nabla g$. $\rdel_r$ extends this concept to vector valued
+functions and it specifies exactly wich variables ($r$) the partials
+are taken with respect to.
+\end{rk}
 
-The differential operator $\nabla$ acts on a function that is syntactically adjacent to the right side of $\nabla$. 
-For notational convenicence the operator $\ldel$ is introduced so that it acts exactly like $\nabla$ on functions that are
-syntactically adjacent to the left side $\ldel$.  For example, for $\alpha\in \R$, $f:\R^N\to \R^N$ mapping $a\mapsto f(a)$,
+
+\begin{rk}
+The operator $\rdel$ acts on a function that is syntactically adjacent to the right side of $\rdel$. 
+For notational convenicence the operator $\ldel$ is introduced so that it acts exactly like $\rdel$ but
+on functions that are syntactically adjacent to the left side $\ldel$.  For example, for $\alpha\in \R$
+and $f:\R^n\to \R^m$ mapping $a\mapsto f(a)$,
 \begin{align}
-    \alpha \tp{\left(\pd{f}{a}\right)} &= \alpha \nabla_a f = f \ldel_a \alpha = \tp{\left(\pd{f}{a}\right)} \alpha \\
-    \nabla_a \cdot f &= \tp{\nabla_a} f = \tp{f} \ldel_a = f \cdot \ldel_a.
+    \alpha \tp{\left(\pd{f}{a}\right)} &= \alpha \rdel_a \tp{f} = \tp{(f \tp{\ldel_a})} \alpha = \tp{\left(\pd{f}{a}\right)} \alpha \\
+    \alpha \pd{f}{a} &= \alpha \tp{(\rdel_a \tp{f})} = f \tp{\ldel_a} \alpha = \pd{f}{a} \alpha \\
+    \rdel_a \cdot f &= \tp{\rdel_a} f = \tp{f} \ldel_a = f \cdot \ldel_a.
 \end{align}
-This newly introduced notation makes it nicer to write tortuous expressions that involve matrix
-valued functions such as $\tp{(\tp{\nabla_a} \tp{A})}$ as $A \ldel_a$ instead.
-To be notationally consistent, $\nabla$ is written as $\rdel$ to denote that it's acting on
-functions that syntactically appear adjacent to the right side of $\rdel$.
+This newly introduced notation makes it much nicer to write tortuous expressions that involve matrix
+valued functions such as $\tp{(\tp{\rdel_a} \tp{A})}$ as $A \ldel_a$ instead.
+Excluding associativity on the side it is acting on and commutativity,
+the new operators can be used much like ordinary vectors.
 \end{rk}
 
 \begin{thm}[Divergence Theorem for Rank-2 Tensors over $\R$]
@@ -159,7 +188,7 @@ Iff $\phi$ is a conserved flow property,
 Let $a:\R^3\to \R^N$ and $b:\R^3\to \R^3$.  Then
 \begin{equation}
     \label{lem:nablaab}
-    (a\tp{b})\ldel_r = a \tp{\rdel_r} b  + \tp{(\rdel_r a)} b.
+    (a\tp{b})\ldel_r = a \tp{\rdel_r} b  + a \tp{\ldel_r} b.
 \end{equation}
 \end{lem}
 \begin{proof}
@@ -176,7 +205,7 @@ Let $a:\R^3\to \R^N$ and $b:\R^3\to \R^3$.  Then
         &= a ( \tp{\rdel_r} b ) + \begin{bmatrix}
             \pd{a}{x} & \pd{a}{y} & \pd{a}{z}
         \end{bmatrix} b \\
-        &= a (\tp{\rdel_r} b) + \tp{(\rdel_r a)} b.
+        &= a (\tp{\rdel_r} b) + a \tp{\ldel_r} b.
     \end{align}
 \end{proof}
 
@@ -184,7 +213,7 @@ Let $a:\R^3\to \R^N$ and $b:\R^3\to \R^3$.  Then
 Iff $\phi$ is a conserved flow property,
 \begin{equation}
     \label{continuity}
-    \pd{\phi}{t} + \phi \tp{\rdel_r} v +  \tp{(\rdel_r \phi)} v = s_\phi.
+    \pd{\phi}{t} + \phi \tp{\rdel_r} v +  \phi \tp{\ldel_r} v = s_\phi.
 \end{equation}
 \end{thm}
 \begin{proof}

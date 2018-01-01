@@ -31,13 +31,26 @@ from the \emph{mean hydrostatic stress tensor} $-p I_3$ also called the
 \emph{volumetric stress tensor}.
 \end{rk}
 
+\begin{thm}[Trace of Deviatoric Stress Tensor is Zero]
+    \begin{equation}
+        \Tr \tau = 0.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    \begin{align}
+        \Tr \tau &= \Tr \sigma + \Tr p I_3 \\
+        \Tr \tau &= \Tr \sigma + 3 p \\
+        \Tr \tau &= \Tr \sigma + 3 \left( -\frac{1}{3} \Tr \sigma \right) \\
+        \Tr \tau &= \Tr \sigma - \Tr \sigma = 0.
+    \end{align}
+\end{proof}
+
 \begin{df}[Newtonian Fluid]
-    A fluid is \emph{Newtonian} iff the deviatoric stress tensor is symmetric and
-    is a linear function of the velocity gradient.
+    A fluid is \emph{Newtonian} iff the deviatoric stress tensor is a linear function of the velocity gradient.
     That is, there exist coefficients
     $L_{ijkl}\in \R$ such that
     \begin{equation}
-        \tau_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (\rdel_r v)_{kl}.
+        \tau_{ij} = \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (v\tp{\ldel_r})_{kl}.
     \end{equation}
     The notation $(\cdot)_{ij}$ denotes the element at the $i^\text{th}$ row and $j^\text{th}$ column of matrix $(\cdot)$.
 \end{df}
@@ -50,94 +63,276 @@ in all directions.
 \begin{df}[Isotropic Newtonian Fluid]
     A Newtonian fluid is \emph{isotropic} iff for every rotation matrix $R\in \SO(3;\R)$,
     \begin{equation}
-        (R\tau \tp{R})_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (R(\rdel_r v)\tp{R})_{kl}.
+        (R\tau \tp{R})_{ij} = \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (R(v\tp{\ldel_r})\tp{R})_{kl}.
     \end{equation}
 \end{df}
 
-\begin{thm}[Deviatoric Stress for an Isotropic Newtonian Fluid]
-Theorem to be written.
+\begin{thm}[Stokes Relations]
+    Let the \emph{shear viscosity} $\mu:\R^4\to \R$ be a flow property.
+    The deviatoric stress tensor of an isotropic Newtonian fluid must be of the form
+    \begin{equation}
+        \tau_{ij} = \begin{cases}
+            2 \mu \pd{v_i}{r_i} - \frac{2}{3} \mu \tr( v \tp{\ldel_r} ) &\text{ for $i=j$ } \\
+            \mu \left( \pd{v_i}{r_j} + \pd{v_j}{r_i} \right) &\text{ for $i\neq j$. }
+        \end{cases}
+    \end{equation}
 \end{thm}
 \begin{proof}
     \begin{equation}
-        \tau_{ij} = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (\rdel_r v)_{kl}.
+        \tau_{ij} = \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} (v\tp{\ldel_r})_{kl}.
     \end{equation}
     Let $L_{kl}\in M_3(\R)$ denote the matrix with entries $(L_{kl})_{ij} = L_{ijkl}$.  Then
     \begin{equation}
-        \tau = \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (\rdel_r v)_{kl}.
+        \tau = \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (v\tp{\ldel_r})_{kl}.
     \end{equation}
-    Because $\tau$ is symmetric $L_{kl}$ is symmetric.  The fluid is isotropic, therefore
-    for every $R\in \SO(3;\R)$,
+    Because the stress tensor is symmetric, $L_{ijkl}=L_{jikl}$ and so $L_{kl}$ is symmetric.
+    The fluid is isotropic, therefore for every $R\in \SO(3;\R)$,
     \begin{align}
-        R \tau \tp{R} &= \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (R (\rdel_r) v \tp{R})_{kl} \\
-        \tau &= \sum_{k=0}^2 \sum_{l=0}^2 \tp{R} L_{kl} R (R (\rdel_r) v \tp{R})_{kl} \\
-        \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} \underbrace{(\rdel_r v)_{kl}}_{\pd{v_l}{r_k}} &=
-            \sum_{k=0}^2 \sum_{l=0}^2 \underbrace{\tp{R} L_{kl} R (R (\rdel_r) v \tp{R})_{kl}}_{B_{kl}(R)}.
+        R \tau \tp{R} &= \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (R (v \tp{\ldel_r}) \tp{R})_{kl} \\
+        \tau &= \sum_{k=0}^2 \sum_{l=0}^2 \tp{R} L_{kl} R (R (v \tp{\ldel_r}) \tp{R})_{kl} \\
+        \underbrace{ \sum_{k=0}^2 \sum_{l=0}^2 L_{kl} (v \tp{\ldel_r})_{kl}}_{\tau^L} &=
+            \underbrace{\sum_{k=0}^2 \sum_{l=0}^2 \tp{R} L_{kl} R (R (v \tp{\ldel_r}) \tp{R})_{kl}}_{\tau^R(R)}.
     \end{align}
-    Expanding out $A_{kl}$,
-    %\noindent\begin{minipage}{\textwidth}
-    \begin{equation*}
-        \hidewidth
-        A_{kl} = \begin{bmatrix}
-            L_{00kl} \pd{v_0}{r_0} + L_{01kl} \pd{v_1}{r_0} + L_{02} \pd{v_2}{r_0}& L_{00kl} \pd{v_0}{r_1} + L_{01} \pd{v_1}{r_1} + L_{02kl} \pd{v_2}{r_1}& L_{00} \pd{v_0}{r_2} + L_{01kl} \pd{v_1}{r_2} + L_{02kl} \pd{v_2}{r_2} \\
-            L_{01kl} \pd{v_0}{r_0} + L_{11kl} \pd{v_1}{r_0} + L_{12} \pd{v_2}{r_0}& L_{01kl} \pd{v_0}{r_1} + L_{11} \pd{v_1}{r_1} + L_{12kl} \pd{v_2}{r_1}& L_{01} \pd{v_0}{r_2} + L_{11kl} \pd{v_1}{r_2} + L_{12kl} \pd{v_2}{r_2} \\
-            L_{02kl} \pd{v_0}{r_0} + L_{12kl} \pd{v_1}{r_0} + L_{22} \pd{v_2}{r_0}& L_{02kl} \pd{v_0}{r_1} + L_{12} \pd{v_1}{r_1} + L_{22kl} \pd{v_2}{r_1}& L_{02} \pd{v_0}{r_2} + L_{12kl} \pd{v_1}{r_2} + L_{22kl} \pd{v_2}{r_2}
-        \end{bmatrix}
-        \hidewidth
-    \end{equation*}
-    %\end{minipage}
-
     Choosing
     \begin{equation}
-    R = R_0 = \begin{bmatrix}
-    0 & -1 & 0 \\
-    1 & 0 & 0 \\
-    0 & 0 & 1
+        R_0 = \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & -1 & 0 \\
+            0 & 0 & -1
+        \end{bmatrix},
+    \end{equation}
+    gives
+    \begin{align}
+        \tp{R_0} L_{kl} R_0 &= \begin{bmatrix}
+            L_{00kl} & -L_{01kl} & -L_{02kl} \\
+           -L_{10kl} &  L_{11kl} &  L_{12kl} \\
+           -L_{20kl} &  L_{21kl} &  L_{22kl}
+        \end{bmatrix} \\
+        R_0(v\tp{\ldel_r})\tp{R_0} &= \begin{bmatrix}
+            (v\tp{\ldel_r})_{00} & -(v\tp{\ldel_r})_{01} & -(v\tp{\ldel_r})_{02} \\
+           -(v\tp{\ldel_r})_{10} &  (v\tp{\ldel_r})_{11} &  (v\tp{\ldel_r})_{12} \\
+           -(v\tp{\ldel_r})_{20} &  (v\tp{\ldel_r})_{21} &  (v\tp{\ldel_r})_{22}
+        \end{bmatrix}
+    \end{align}
+    Writing out the equation for $\tau^L_{00} = \tau^R_{00}(R_0)$,
+    \begin{align}
+        \tau^L_{00} &= \tau^R_{00}(R_0) \\
+        0 &= \tau^L_{00} - \tau^R_{00}(R_0) \\
+        0 &= \sum_{k=0}^2 \sum_{l=0}^2 L_{00kl} (v \tp{\ldel_r})_{kl} 
+             - \sum_{k=0}^2 \sum_{l=0}^2 L_{00kl} (R_0 v \tp{\ldel_r} \tp{R_0})_{kl}
+    \end{align}
+    Because $\tau^L_{00}$ and $\tau^R_{00}(R_0)$ differ in only four terms,
+    \begin{align}
+        0 &=  2L_{0001}(v\tp{\ldel_r})_{01} + 2L_{0002}(v\tp{\ldel_r})_{02} + 2L_{0010}(v\tp{\ldel_r})_{10} + 2L_{0020}(v\tp{\ldel_r})_{20}
+    \end{align}
+    The velocity gradients could have arbitrary values, therefore
+    \begin{equation}
+        0 = L_{0001} = L_{0002} = L_{0010} = L_{0020}.
+    \end{equation}
+    Repeating the above process, which in this proof will be referred to as ``the procedure'',
+    over every index $\tau_{ij}$ and also for the choice of $R$
+    \begin{equation}
+        R_1 = \begin{bmatrix}
+        -1 & 0 & 0 \\
+        0 &  1 & 0 \\
+        0 & 0 & -1
     \end{bmatrix},
     \end{equation}
-
+    results in
+    \begin{align}
+        0 &= \tau^L_{00} - \tau^R_{00}(R_0) = 2L_{0001}d_{01} + 2L_{0002}d_{02} + 2L_{0010}d_{10} + 2L_{0020}d_{20} \\
+        0 &= \tau^L_{01} - \tau^R_{01}(R_0) = 2L_{0100}d_{00} + 2L_{0111}d_{11} + 2L_{0112}d_{12} + 2L_{0121}d_{21} + 2L_{0122}d_{22} \\
+        0 &= \tau^L_{02} - \tau^R_{02}(R_0) = 2L_{0200}d_{00} + 2L_{0211}d_{11} + 2L_{0212}d_{12} + 2L_{0221}d_{21} + 2L_{0222}d_{22} \\
+        0 &= \tau^L_{11} - \tau^R_{11}(R_0) = 2L_{1101}d_{01} + 2L_{1102}d_{02} + 2L_{1110}d_{10} + 2L_{1120}d_{20} \\
+        0 &= \tau^L_{12} - \tau^R_{12}(R_0) = 2L_{1201}d_{01} + 2L_{1202}d_{02} + 2L_{1210}d_{10} + 2L_{1220}d_{20} \\
+        0 &= \tau^L_{22} - \tau^R_{22}(R_0) = 2L_{2201}d_{01} + 2L_{2202}d_{02} + 2L_{2210}d_{10} + 2L_{2220}d_{20} \\
+        0 &= \tau^L_{00} - \tau^R_{00}(R_1) = 2L_{0001}d_{01} + 2L_{0010}d_{10} + 2L_{0012}d_{12} + 2L_{0021}d_{21} \\
+        0 &= \tau^L_{01} - \tau^R_{01}(R_1) = 2L_{0100}d_{00} + 2L_{0102}d_{02} + 2L_{0111}d_{11} + 2L_{0120}d_{20} + 2L_{0122}d_{22} \\
+        0 &= \tau^L_{02} - \tau^R_{02}(R_1) = 2L_{0201}d_{01} + 2L_{0210}d_{10} + 2L_{0212}d_{12} + 2L_{0221}d_{21} \\
+        0 &= \tau^L_{11} - \tau^R_{11}(R_1) = 2L_{1101}d_{01} + 2L_{1110}d_{10} + 2L_{1112}d_{12} + 2L_{1121}d_{21} \\
+        0 &= \tau^L_{12} - \tau^R_{12}(R_1) = 2L_{1200}d_{00} + 2L_{1202}d_{02} + 2L_{1211}d_{11} + 2L_{1220}d_{20} + 2L_{1222}d_{22} \\
+        0 &= \tau^L_{22} - \tau^R_{22}(R_1) = 2L_{2201}d_{01} + 2L_{2210}d_{10} + 2L_{2212}d_{12} + 2L_{2221}d_{21}
+    \end{align}
+    where for notational convenience, $d_{kl}=(v\tp{\ldel_r})_{kl}$.  From the above,
+    \begin{align}
+        0 &= L0001 = L0002 = L0010 = L0012 = L0020 = L0021 \\
+        0 &= L1101 = L1102 = L1110 = L1112 = L1120 = L1121 \\
+        0 &= L2201 = L2202 = L2210 = L2212 = L2220 = L2221 \\
+        0 &= L0100 = L0102 = L0111 = L0112 = L0120 = L0121 = L0122 \\
+        0 &= L0200 = L0201 = L0210 = L0211 = L0212 = L0221 = L0222 \\
+        0 &= L1200 = L1201 = L1202 = L1210 = L1211 = L1220 = L1222
+    \end{align}
+    More elegantly,
+    \begin{enumerate}
+        \item $i=j \implies L_{ijkl}=0$ for all $k\neq l$.  That is, only the diagonal terms in the velocity gradient
+            affect diagonal terms in the deviatic stress tensor.
+        \item $i\neq j \implies L_{ijkl}=0$ if $(i,j)\neq (k,l)$ and $(i,j)\neq(l,k)$.
+    \end{enumerate}
+    With the above conclusions, repeating the procedure yet again for the following choices for $R$
+    \begin{equation}
+        R_2 = \begin{bmatrix}
+            0 & -1 & 0 \\
+            1 & 0 & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}, \quad
+        R_3 = \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & 0 & -1 \\
+            0 & 1 & 0
+        \end{bmatrix}, \quad
+        R_4 = \begin{bmatrix}
+            0 & 0 & -1 \\
+            0 & 1 & 0  \\
+            1 & 0 & 0
+        \end{bmatrix},
+    \end{equation}
+    leads to
+    \begin{align}
+        0 &= \tau^L_{00} - \tau^R_{00}(R_2) = (L_{0000} - L_{1111})d_{00} + (L_{0011} - L_{1100})d_{11} + (L_{0022} - L_{1122})d_{22} \\
+        0 &= \tau^L_{01} - \tau^R_{01}(R_2) = (L_{0110} - L_{0101})d_{10} + (L_{0101} - L_{0110})d_{01} \\
+        0 &= \tau^L_{02} - \tau^R_{02}(R_2) = (L_{0220} - L_{1221})d_{20} + (L_{0202} - L_{1212})d_{02} \\
+        0 &= \tau^L_{11} - \tau^R_{11}(R_2) = (L_{1100} - L_{0011})d_{00} + (L_{1111} - L_{0000})d_{11} + (L_{1122} - L_{0022})d_{22} \\
+        0 &= \tau^L_{12} - \tau^R_{12}(R_2) = (L_{1221} - L_{0220})d_{21} + (L_{1212} - L_{0202})d_{12} \\
+        0 &= \tau^L_{22} - \tau^R_{22}(R_2) = (L_{2200} - L_{2211})d_{00} + (L_{2211} - L_{2200})d_{11} \\
+        0 &= \tau^L_{00} - \tau^R_{00}(R_3) = (L_{0011} - L_{0022})d_{11} + (L_{0022} - L_{0011})d_{22} \\
+        0 &= \tau^L_{01} - \tau^R_{01}(R_3) = (L_{0110} - L_{0220})d_{10} + (L_{0101} - L_{0202})d_{01} \\
+        0 &= \tau^L_{02} - \tau^R_{02}(R_3) = (L_{0220} - L_{0110})d_{20} + (L_{0202} - L_{0101})d_{02} \\
+        0 &= \tau^L_{11} - \tau^R_{11}(R_3) = (L_{1100} - L_{2200})d_{00} + (L_{1111} - L_{2222})d_{11} + (L_{1122} - L_{2211})d_{22} \\
+        0 &= \tau^L_{12} - \tau^R_{12}(R_3) = (L_{1221} - L_{1212})d_{21} + (L_{1212} - L_{1221})d_{12} \\
+        0 &= \tau^L_{22} - \tau^R_{22}(R_3) = (L_{2200} - L_{1100})d_{00} + (L_{2211} - L_{1122})d_{11} + (L_{2222} - L_{1111})d_{22} \\
+        0 &= \tau^L_{00} - \tau^R_{00}(R_4) = (L_{0000} - L_{2222})d_{00} + (L_{0011} - L_{2211})d_{11} + (L_{0022} - L_{2200})d_{22} \\
+        0 &= \tau^L_{01} - \tau^R_{01}(R_4) = (L_{0110} - L_{1212})d_{10} + (L_{0101} - L_{1221})d_{01} \\
+        0 &= \tau^L_{02} - \tau^R_{02}(R_4) = (L_{0220} - L_{0202})d_{20} + (L_{0202} - L_{0220})d_{02} \\
+        0 &= \tau^L_{11} - \tau^R_{11}(R_4) = (L_{1100} - L_{1122})d_{00} + (L_{1122} - L_{1100})d_{22} \\
+        0 &= \tau^L_{12} - \tau^R_{12}(R_4) = (L_{1221} - L_{0101})d_{21} + (L_{1212} - L_{0110})d_{12} \\
+        0 &= \tau^L_{22} - \tau^R_{22}(R_4) = (L_{2200} - L_{0022})d_{00} + (L_{2211} - L_{0011})d_{11} + (L_{2222} - L_{0000})d_{22}
+    \end{align}
+    From the above,
+    \begin{enumerate}
+        \item $L_{0000} = L_{1111} = L_{2222}$.
+        \item $L_{0011} = L_{0022} = L_{1100} = L_{1122} = L_{2200} = L_{2211}$.
+        \item $L_{0101} = L_{0110} = L_{0202} = L_{0220} = L_{1212} = L_{1221}$.
+    \end{enumerate}
+    Define  $\alpha, \alpha_1,\lambda \in \R$ such that
+    \begin{enumerate}
+        \item $\alpha = L_{0000} = L_{1111} = L_{2222}$
+        \item $\alpha_1 = L_{0101} = L_{0110} = L_{0202} = L_{0220} = L_{1212} = L_{1221}$
+        \item $\lambda = L_{0011} = L_{0022} = L_{1100} = L_{1122} = L_{2200} = L_{2211}$.
+    \end{enumerate}
+    The procedure repeated one final time for the following choice of $R$
+    \begin{equation}
+        R_5 = \begin{bmatrix}
+            \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} & 0 \\
+            \frac{\sqrt{2}}{2} &  \frac{\sqrt{2}}{2} & 0 \\
+            0 & 0 & 1
+        \end{bmatrix},
+    \end{equation}
+    and it results in
+    \begin{align}
+        0 &= \tau^L_{00} - \tau^R_{00}(R_5) = (\alpha/2 - \lambda/2 - \alpha_{1})d_{00} + (\lambda/2 - \alpha/2 + \alpha_{1})d_{11}.
+    \end{align}
+    From the above,
+    \begin{align}
+        0 = \frac{\alpha}{2} - \frac{\lambda}{2} - \alpha_{1} \\
+        \alpha_{1} = \frac{\alpha - \lambda}{2}.
+    \end{align}
+    Substituting, we finally have
+    \begin{enumerate}
+        \item $\alpha = L_{0000} = L_{1111} = L_{2222}$.
+        \item $\frac{\alpha - \lambda}{2} = L_{0101} = L_{0110} = L_{0202} = L_{0220} = L_{1212} = L_{1221}$.
+        \item $\lambda = L_{0011} = L_{0022} = L_{1100} = L_{1122} = L_{2200} = L_{2211}$.
+        \item Every other element $L_{ijkl}=0$.
+    \end{enumerate}
+    To demonstrate that this form for $L$ cannot be reduced any further, the procedure
+    can be repeated for generators of $\SO(3;\R)$
+    \begin{equation}
+        R_6 = \begin{bmatrix}
+            \cos\theta & -\sin\theta & 0 \\
+            \sin\theta & \cos\theta & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}, \quad
+        R_7 = \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & \cos\phi & -\sin\phi \\
+            0 & \sin\phi & \cos\phi
+        \end{bmatrix}
+    \end{equation}
+    where $\theta,\phi\in \R$, which results in
+    \begin{align}
+        \tau^L_{ij}-\tau^R_{ij}(R_6) = 0 \\
+        \tau^L_{ij}-\tau^R_{ij}(R_7) = 0.
+    \end{align}
+    Putting everything together, the deviatoric stress tensor must be of the form
+    \begin{equation}
+        \tau_{ij} = \begin{cases}
+            \alpha \pd{v_i}{r_i} + \lambda \left( \tr( v \tp{\ldel_r} ) - \pd{v_i}{r_i} \right) &\text{ for $i=j$ } \\
+            \frac{\alpha-\lambda}{2}\left( \pd{v_i}{r_j} + \pd{v_j}{r_i} \right) &\text{ for $i\neq j$. }
+        \end{cases}
+    \end{equation}
+    Define
+    \begin{equation}
+        \mu = \frac{\alpha-\lambda}{2}
+    \end{equation}
+    then
+    \begin{equation}
+        \tau_{ij} = \begin{cases}
+            2 \mu \pd{v_i}{r_i} + \lambda \tr( v \tp{\ldel_r} ) &\text{ for $i=j$ } \\
+            \mu \left( \pd{v_i}{r_j} + \pd{v_j}{r_i} \right) &\text{ for $i\neq j$. }
+        \end{cases}
+    \end{equation}
+    Because the trace of the deviatoric stress tensor is zero $\lambda = -\frac{2}{3} \mu$.
 \end{proof}
 
+\begin{thm}[Stokes Relations in Matrix-Vector Form]
+    Let the \emph{shear viscosity} $\mu:\R^4\to \R$ be a flow property.
+    The deviatoric stress tensor of an isotropic Newtonian fluid must be of the form
+    \begin{equation}
+        \tau = \mu \left( \rdel_r \tp{v} + v \tp{\ldel_r} - \frac{2}{3} (\tp{\rdel_r}v) I_3 \right).
+    \end{equation}
+\end{thm}
+\begin{proof}
+Expanding out the matrix-vector products leads to
+\begin{equation}
+    \tau_{ij} = \begin{cases}
+        2 \mu \pd{v_i}{r_i} - \frac{2}{3} \mu \tr( v \tp{\ldel_r} ) &\text{ for $i=j$ } \\
+        \mu \left( \pd{v_i}{r_j} + \pd{v_j}{r_i} \right) &\text{ for $i\neq j$. }
+    \end{cases}
+\end{equation}
+\end{proof}
 
-%    \begin{equation}
-%        \tau[i,j] = \sum_{i=0}^2 \sum_{j=0}^2 \sum_{k=0}^2 \sum_{l=0}^2 L_{ijkl} \rdel_{r_l} v_k.
-%    \end{equation}
-%    Let $\tau[j]$ be the $j^\text{th}$ column of $\tau$.
-%    Writing the summation in terms of matrix-vector products,
-%    \begin{equation}
-%        \tau[j] = \sum_{i=0}^2 \sum_{k=0}^2 L_{ik} \rdel_r v_k.
-%    \end{equation}
-%    Because the fluid is isotropic, for all $R\in \SO(3;\R)$,
-%    \begin{align}
-%        R\tau \tp{R} &= L \rdel_r (Rv) \\
-%        R\tau \tp{R} &= L (\rdel_r v) \tp{R} \\
-%        R\tau &= L (\rdel_r v)
-%    \end{align}
-%    and so
-%    \begin{align}
-%        R \tau[j] &= \sum_{i=0}^2 \sum_{k=0}^2 L_{ik} R \rdel_{r_l} v \\
-%        \tau[j] &= \sum_{i=0}^2 \sum_{k=0}^2 \tp{R} L_{ik} R \rdel_{r_l} v \\
-%        L_{ik} &= \tp{R} L_{ik} R.
-%    \end{align}
-%    Suppose $m_{ik}$ is an eigenvector of $L_{ik}$ with eigenvalue $\alpha_{ik}$.
-%    Then
-%    \begin{align}
-%        \alpha_{ik} m_{ik} &= L_{ik} m_{ik} \\
-%        \alpha_{ik} m_{ik} &= \tp{R}L_{ik}R m_{ik} \\
-%        \alpha_{ik} R m_{ik} &= L_{ik} R m_{ik}.
-%    \end{align}
-%    $R m_{ik}$ is also an eigenvector of $m_{ik}$ with eigenvalue $\alpha_{ik}$.
-%    Any unit vector on the sphere can be chosen as an eigenvector of $m_{ik}$.
-%    Choose the standard basis for $\R^3$ as the set of eigenvectors.
-%    Then eigendecomposition of $L_{ik}$ gives
-%    \begin{equation}
-%        L_{ik} = I_3 \begin{bmatrix}
-%            \alpha_{ik} & 0 & 0 \\
-%            0 & \alpha_{ik} & 0 \\
-%            0 & 0 & \alpha_{ik}
-%        \end{bmatrix} I_3 = \alpha_{ik} I_3.
-%    \end{equation}
-%    Therefore
-%    \begin{equation}
-%        \tau[j] = \sum_{i=0}^2 \sum_{k=0}^2 \alpha_{ik} \rdel_{r_l} v
-%    \end{equation}
-%    This means that the entire
+\begin{thm}[The Navier-Stokes Momentum Equation]
+The momentum conservation equation of an isotropic Newtonian fluid is given
+by
+\begin{equation}
+    -\rdel_r p + \tau \ldel_r + f_b = \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v
+\end{equation}
+where
+\end{thm}
+\begin{proof}
+Beginning with the Cauchy Momentum Equation (\autoref{cauchymom}),
+\begin{equation}
+    \sigma \ldel_r + f_b = \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v.
+\end{equation}
+Substituting $\sigma = -p I_3 + \tau$,
+\begin{align}
+    (-p I_3 + \tau) \ldel_r + f_b &= \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v \\
+    (-p I_3)\ldel_r + \tau \ldel_r + f_b &= \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v \\
+    -\rdel_r p + \tau \ldel_r + f_b &= \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v.
+\end{align}
+\end{proof}
+
+\begin{thm}[Simplification of $\tau \ldel_r$]
+    a
+\end{thm}
+\begin{proof}
+\begin{equation}
+    \tau \ldel_r = \left( \mu \frac{\tau }{\mu} \right)  \ldel_r.
+\end{equation}
+Using~\autoref{lem:nablaab} and noting $\tau = \tp{\tau}$,
+\begin{align}
+    \tau \ldel_r &= \tp{ (\rdel_r \mu ) } \left( \frac{\tau}{\mu} \right)
+        + \mu \tp{\rdel_r} \left( \frac{\tau}{\mu} \right) \\
+    \tau \ldel_r &= \tp{ (\rdel_r \mu ) } \left( \frac{\tau}{\mu} \right)
+        + \mu \tp{\rdel_r} \left( \rho \pd{v}{t} + \rho (v \tp{\ldel_r}) v \right) \\
+\end{align}
+\end{proof}

@@ -13,3 +13,38 @@
 \begin{proof}
     Direct consequence of~\autoref{continuity}.
 \end{proof}
+
+\begin{thm}[Conservation of Mass for Multiple Species]
+    Let $\rho = \sum_{i=0}^{N-1} \rho_i$ where $\rho_i:\R^4\to \R$
+    is the conserved flow property density for species $i$.  Then
+    \begin{equation}
+        \pd{\rho_i}{t} + \rho_i \tp{\rdel_r} v  +  \tp{(\rdel_r\rho_i )} v = s_{\rho_i},
+    \end{equation}
+    where
+    \begin{equation}
+        \sum_{i=0}^{N-1} s_{\rho_i} = 0.
+    \end{equation}
+\end{thm}
+\begin{proof}
+Starting with
+    \begin{equation}
+    \pd{\rho}{t} + \rho \tp{\rdel_r} v  +  \tp{(\rdel_r\rho )} v = 0,
+    \end{equation}
+    and substituting $\rho = \sum_{i=0}^{N-1} \rho_i$ gives
+    \begin{equation}
+        \sum_{i=0}^{N-1} \pd{\rho_i}{t} + \sum_{i=0}^{N-1} \rho_i \tp{\rdel_r} v  +  \sum_{i=0}^{N-1} \tp{(\rdel_r\rho_i )} v = 0.
+    \end{equation}
+    Because $\rho_i$ is a conserved flow property,
+    \begin{equation}
+        \pd{\rho_i}{t} + \rho_i \tp{\rdel_r} v  +  \tp{(\rdel_r\rho_i )} v = s_{\rho_i}.
+    \end{equation}
+    Substituting gives
+    \begin{equation}
+        \sum_{i=0}^{N-1} s_{\rho_i} = 0.
+    \end{equation}
+\end{proof}
+
+\begin{rk}
+The actual values for $s_{\rho_i}$ can be charecterized by the dynamics of the
+reactions of the different species.
+\end{rk}

@@ -4,7 +4,7 @@ TEX_SRCS := $(wildcard */*.tex)
 
 .PHONY: $(FILENAME).pdf
 $(FILENAME).pdf :
-	pdflatex -shell-escape main.tex
+#	pdflatex -shell-escape main.tex
 	bibtex main
 	makeindex main.nlo -s nomencl.ist -o main.nls
 	pdflatex -shell-escape main.tex

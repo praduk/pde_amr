@@ -5,29 +5,29 @@
 \begin{thm}[Conservation of Linear Momentum]
     \begin{equation}
         \label{convlinmom}
-        s_{\rho v} = \rho \pd{v}{t} + \tp{( \rho \rdel_r v )} v.
+        s_{\rho v} = \rho \pd{v}{t} + \rho (v\tp{\ldel_r}) v.
     \end{equation}
 \end{thm}
 \begin{proof}
     Applying~\autoref{continuity} with $\phi=\rho v$,
     \begin{equation}
         \label{contmom_tmp1}
-        s_{\rho v} = \pd{\rho}{t}v + \rho \pd{v}{t}  + \rho v \tp{\rdel_r} v  + \tp{(\rdel_r(\rho v))} v.
+        s_{\rho v} = \pd{\rho}{t}v + \rho \pd{v}{t}  + \rho v \tp{\rdel_r} v  + (\rho v) \tp{\ldel_r} v.
     \end{equation}
-    The term $\tp{(\rdel_r (\rho v))}v$ can be further simplified
+    The term $(\rho v) \tp{\ldel_r}v$ can be further simplified by using the chain rule
     \begin{align}
-        \tp{(\rdel_r (\rho v))}v &= \begin{bmatrix}
+        (\rho v) \tp{\ldel_r} v &= \begin{bmatrix}
             \pd{\rho v}{x} & \pd{\rho v}{y} & \pd{\rho v}{z}
         \end{bmatrix} v \\
         &= \begin{bmatrix}
             \pd{\rho}{x} v + \rho \pd{v}{x} & \pd{\rho}{y} v + \rho \pd{v}{y} & \pd{\rho}{z} v + \rho \pd{v}{z}
         \end{bmatrix} v \\
-        &= (v\tp{(\rdel_r\rho)} + \rho \tp{(\rdel_r v)}) v \\
-        &= (\tp{(\rdel_r\rho)}v)v + \tp{(\rho \rdel_r v)} v
+        &= (v\tp{(\rdel_r\rho)} + \rho (v\tp{\ldel_r})) v \\
+        &= (\tp{(\rdel_r\rho)}v)v + \rho (v\tp{\ldel_r}) v
     \end{align}
     Substituting into~\autoref{contmom_tmp1},
     \begin{align}
-        s_{\rho v} &= \pd{\rho}{t}v + \rho \pd{v}{t}  + \left(\rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right) v  + \tp{( \rho \rdel_r v )} v \\
-        s_{\rho v} &= \rho \pd{v}{t}  + \underbrace{\left(\pd{\rho}{t} + \rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right)}_{\text{Zero by~\autoref{conmass}!}} v  + \tp{( \rho \rdel_r v )} v
+        s_{\rho v} &= \pd{\rho}{t}v + \rho \pd{v}{t}  + \left(\rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right) v  + \rho (v\tp{\ldel_r}) v \\
+        s_{\rho v} &= \rho \pd{v}{t}  + \underbrace{\left(\pd{\rho}{t} + \rho \tp{\rdel_r} v + \tp{(\rdel_r\rho)}v \right)}_{\text{Zero by~\autoref{conmass}!}} v  + \rho (v\tp{\ldel_r}) v
     \end{align}
 \end{proof}
