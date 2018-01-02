@@ -1,0 +1,37 @@
+\section{Equation of State}
+
+\begin{df}[The Equation of State]
+Static pressure, density and temperature are related by the
+\emph{equation of state} $\mathfrak{p}:\R^{n+1}\to \R$ for $n$
+species of gas.
+\begin{equation}
+    p(t,r) = \mathfrak{p}(\rho_0(t,r), \rho_1(t,r), \ldots \rho_{n-1}(t,r), T(t,r)).
+\end{equation}
+\end{df}
+
+\begin{df}[Dalton's Law of Parital Pressures]
+If the equation of state for a uniform species of gas is
+$\mathfrak{p}_i:\R^{n+1}\to \R$, then the equation of
+state for a mixture of gasses is
+\begin{equation}
+    \mathfrak{p}(\rho_0(t,r), \rho_1(t,r), \ldots \rho_{n-1}(t,r), T(t,r)) =
+        \sum_{i=0}^{n-1} \mathfrak{p}(\rho_i(t,r),T(t,r)).
+\end{equation}
+\end{df}
+
+\begin{df}[Ideal Gas Law]
+The equation of state for an \emph{ideal gas} is
+\begin{equation}
+    \mathfrak{p}_i(\rho_i,T_i) = \rho_i R_i T_i
+\end{equation}
+where $R_i\in \R$ is the constant given by
+\begin{equation}
+    R_i = \frac{\bar{R}}{M_i}
+\end{equation}
+where $\bar{R}\in \R$ is the ideal gas constant
+and $M_i\in \R$ is the molecular weight of the gas.
+\end{df}
+\begin{rk}
+The ideal gas constant is $\bar{R}=8.314459848$ J/kg/$^\circ$K
+and for air $R\approx 2817$ J/kg/$^\circ$K.
+\end{rk}

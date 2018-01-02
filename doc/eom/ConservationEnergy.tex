@@ -1,0 +1,177 @@
+\section{Conservation of Energy}
+\begin{df}[Specific Internal Energy]
+    The \emph{specific internal energy} $u:\R^4\to \R$ is a flow property.
+\end{df}
+
+\begin{rk}
+The internal energy of a system is the energy within a system excluding
+the kinetic energy of the mean motion of the whole system.  That is
+$\text{Specific Total Energy} = u + \tp{v}v/2$.
+\end{rk}
+
+\begin{df}[Internal Energy Density]
+    The flow property \emph{internal energy density} $(\rho u):\R^4\to \R$ is conserved.
+\end{df}
+
+\begin{rk}
+Specific internal energy is internal energy per unit mass.
+Internal energy density is internal energy per unit volume.
+\end{rk}
+
+\begin{thm}[Conservation of Internal Energy]
+    \begin{equation}
+    \label{conenergy}
+         \rho \pd{u}{t} + \rho \tp{(\rdel_r u )} v  = s_{\rho u}.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Substituting $\rho u$ into~\autoref{continuity},
+    \begin{equation}
+        u \pd{\rho}{t} + \rho \pd{u}{t} + \rho u \tp{\rdel_r} v  +  \tp{(\rdel_r (\rho u) )} v = s_{\rho u}.
+    \end{equation}
+    Simplyfing the term $\tp{(\rdel_r (\rho u) )}$ gives
+    \begin{equation}
+    u \pd{\rho}{t} + \rho \pd{u}{t} + \rho u \tp{\rdel_r} v + u \tp{(\rdel_r \rho )} v + \rho \tp{(\rdel_r u )} v = s_{\rho u}.
+    \end{equation}
+    Collecting terms
+    \begin{equation}
+        u \underbrace{\left( \pd{\rho}{t} + \rho \tp{\rdel_r}v + \tp{(\rdel_r \rho )} v \right)}_{
+            \text{Zero by~\autoref{conmass}!}}
+        + \rho \pd{u}{t} + \rho \tp{(\rdel_r u )} v  = s_{\rho u}.
+    \end{equation}
+\end{proof}
+
+\begin{ax}[The First Law of Thermodynamics]
+Let $\Omega$ be a control volume.  The source $s_u$ is
+\begin{equation}
+    \underbrace{\iiint_\Omega s_{\rho u} d\Omega}_{\text{Material Rate of Internal Energy}}
+    = \underbrace{\pd{Q}{t}}_{\text{Energy Rate Added to System}}
+    + \underbrace{\pd{W}{t}.}_{\text{Work Rate (Power) on System}}
+\end{equation}
+\end{ax}
+
+\begin{df}[Temperature]
+    The \emph{temperature} $T:\R^4\to \R$ is a flow property.
+\end{df}
+
+\begin{df}[Thermal Conductivity]
+    The \emph{thermal conductivity} $k_T:\R^4\to \R$ is a flow property.
+\end{df}
+
+\begin{df}[Other Energy Sources]
+    $e:\R^4\to \R$ that $(t,r)\mapsto e(t,r)$ and represents all other
+    sources of heat (e.g. chemical reaction).
+\end{df}
+
+\begin{ax}[Fourier's Law of Heat Conduction]
+Let $\Omega$ be a control volume with boundary $\Gamma$.
+    \begin{equation}
+        \pd{Q}{t} =
+        -\underbrace{\oiint_\Gamma k_T \tp{\left( \rdel_r T\right)} n d\Gamma}_{\text{Thermal Conduction}} +
+        \underbrace{\iiint_\Omega e d\Omega}_{\text{Heat from Reactions}}
+    \end{equation}
+\end{ax}
+
+\begin{df}[Mean Velocity and Error Velocity]
+    The mean velocity of a control volume $\Omega$ is a function $\bar{v}:\R\to \R^3$ that maps
+    \begin{equation}
+        t \mapsto \frac{\iiint_\Omega v d\Omega}{\iiint_\Omega d\Omega}.
+    \end{equation}
+    The error velocity is a function $\tilde{v}:\R^4 \to \R^3$ that maps
+    \begin{equation}
+        (t,r) \mapsto v(t,r)-\bar{v}(t).
+    \end{equation}
+\end{df}
+
+\begin{thm}[Expansion of Power Term]
+    \begin{equation}
+        \pd{W}{t} = \iiint_\Omega (\tp{\tilde{v}} \sigma) \ldel_r + \tp{f_b} \tilde{v} d\Omega.
+    \end{equation}
+\end{thm}
+\begin{proof}
+    The work performed by a force $F\R\to \R^3$ over a path $x:\R\to \R^3$
+    is defined as
+    \begin{equation}
+        W = \int \tp{F(t)} dx(t).
+    \end{equation}
+    Differentiating both sides with respect to time gives power
+    \begin{equation}
+        \pd{W}{t} = F(t) \frac{dx}{dt} = \tp{F} v.
+    \end{equation}
+    Evalulating the power exerted by traction and body forces on the control volume,
+    \begin{equation}
+        \pd{W}{t} =
+        \underbrace{\oiint_\Gamma \tp{\tilde{v}} \mathfrak{t} d\Gamma}_{\text{Traction Power}} +
+        \underbrace{\oiint_\Omega \tp{f_b}\tilde{v} d\Omega.}_{\text{Body Force Power}}
+    \end{equation}
+    Replacing traction with the Cauchy stress tensor,
+    \begin{equation}
+        \pd{W}{t} = \oiint_\Gamma (\tp{\tilde{v}} \sigma) n d\Gamma + \iiint_\Omega \tp{f_b} \tilde{v} d\Omega.
+    \end{equation}
+    Using the divergence theorem,
+    \begin{equation}
+        \pd{W}{t} = \iiint_\Omega (\tp{\tilde{v}} \sigma) \ldel_r d\Gamma + \iiint_\Omega \tp{f_b} \tilde{v} d\Omega.
+    \end{equation}
+\end{proof}
+
+\begin{thm}[Conservation of Internal Energy Expanded]
+\begin{equation}
+    \rho \pd{u}{t} + \rho \tp{(\rdel_r u )} v  = (k_T \tp{\left( \rdel_r T\right)} ) \ldel_r + e + \sum_{j=0}^2 \tp{\sigma_j} \rdel_{r_j} v
+\end{equation}
+\end{thm}
+\begin{proof}
+\begin{align}
+    \iiint_\Omega s_{\rho u} d\Omega &= \pd{Q}{t} + \pd{W}{t} \\
+    \iiint_\Omega s_{\rho u} d\Omega &= 
+        \oiint_\Gamma k_T \tp{\left( \rdel_r T\right)} n d\Gamma + \iiint_\Omega e d\Omega +
+        \iiint_\Omega (\tp{\tilde{v}} \sigma) \ldel_r + \tp{f_b} \tilde{v} d\Omega.
+\end{align}
+Using the divergence theorem,
+\begin{align}
+    \iiint_\Omega s_{\rho u} d\Omega &= 
+        \iiint_\Omega \left( (k_T \tp{\left( \rdel_r T\right)} ) \ldel_r + e +
+        (\tp{\tilde{v}} \sigma) \ldel_r + \tp{f_b} \tilde{v} \right) d\Omega. \\
+    \iiint_\Omega s_{\rho u} d\Omega &= 
+        \iiint_\Omega \left( (k_T \tp{\left( \rdel_r T\right)} ) \ldel_r + e +
+        (\tp{\tilde{v}} \sigma) \ldel_r + \tp{f_b} \tilde{v} \right) d\Omega.
+\end{align}
+In the limit as $\Omega$ scales towards zero volume, the terms with $\tilde{v}$ drop out
+and also because $\tilde{v}\tp{\ldel_r} = v\tp{\ldel_r}$ (the simplification of $(\tp{\tilde{v}}\sigma)$
+is left as an exercise),
+\begin{align}
+    s_{\rho u} = (k_T \tp{\left( \rdel_r T\right)} ) \ldel_r + e +
+        \tp{\sigma_0} \rdel_{r_0} v + \tp{\sigma_1} \rdel_{r_1} v + \tp{\sigma_2} \rdel_{r_2} v, \\
+\end{align}
+where $\sigma_0, \sigma_1, \sigma_2 \in \R^3$ are columns of $\sigma$.
+
+\end{proof}
+
+
+\begin{df}[Specific Enthalpy]
+The \emph{specific enthalpy} $h:\R^4\to \R$ is a flow property that maps
+    \begin{equation}
+        (t,r) \mapsto u(t,r) + \frac{p(t,r)}{\rho(t,r)}.
+    \end{equation}
+\end{df}
+
+\begin{thm}[Conservation of Internal Energy Expanded v2]
+\begin{equation}
+    \rho \pd{h}{t} + \rho \tp{(\rdel_r h )} v  = 
+    \pd{p}{t} + \rho \tp{(\rdel_r p )} v +
+    (k_T \tp{\left( \rdel_r T\right)} ) \ldel_r + e + \sum_{j=0}^2 \tp{\sigma_j} \rdel_{r_j} v
+\end{equation}
+\end{thm}
+\begin{proof}
+Substitute definition of enthalpy into the expanded conservation of energy equation.
+\end{proof}
+
+%\begin{ax}[First Law of Thermodynamics]
+%Let source $s_u$ is
+%\begin{equation}
+%    s_u = \underbrace{k (\tp{\del_r} \del_r T)}_{\text{Newton's Law of Cooling}}
+%    + \underbrace{\e}_{\text{Chemical Reactions}}
+%    + \underbrace{\Phi}_{{\text{Specific Work on The System}}
+%\end{equation}
+%\end{ax}
+
+
